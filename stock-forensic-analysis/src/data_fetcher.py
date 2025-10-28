@@ -198,24 +198,29 @@ class YouComNewsDataFetcher:
     
     def search_news(self, query: str, num_results: int = 10) -> List[Dict[str, Any]]:
         """
-        Search for news articles using You.com API
+        Search for live news articles using You.com News API
         
         Args:
             query: Search query
-            num_results: Number of results to return
+            num_results: Number of results to return (1-40)
             
         Returns:
-            List of news articles
+            List of news articles with rich metadata
         """
         if not self.api_key:
             print("Warning: You.com API key not configured. Returning empty results.")
             return []
         
         try:
-            endpoint = f"{self.base_url}/search"
+            # Use the correct /livenews endpoint
+            endpoint = f"{self.base_url}/livenews"
+            
+            # Limit count to valid range (1-40)
+            count = min(max(num_results, 1), 40)
+            
             params = {
-                'query': query,
-                'num_web_results': num_results,
+                'q': query,  # Correct parameter name is 'q'
+                'count': count,  # Correct parameter name is 'count'
             }
             
             response = requests.get(
@@ -228,23 +233,41 @@ class YouComNewsDataFetcher:
             if response.status_code == 200:
                 data = response.json()
                 
-                # Extract news results
+                # Extract news results from the correct structure
                 news_results = []
                 
-                # Check for hits in the response
-                if 'hits' in data:
-                    for hit in data['hits'][:num_results]:
+                # Parse news.results structure
+                if 'news' in data and 'results' in data['news']:
+                    for result in data['news']['results'][:num_results]:
+                        # Extract meta_url information
+                        meta_url = result.get('meta_url', {})
+                        
+                        # Extract thumbnail information
+                        thumbnail = result.get('thumbnail', {})
+                        
                         news_results.append({
-                            'title': hit.get('title', ''),
-                            'description': hit.get('description', ''),
-                            'url': hit.get('url', ''),
-                            'published_date': hit.get('published_date', ''),
-                            'source': hit.get('source', ''),
+                            'title': result.get('title', ''),
+                            'description': result.get('description', ''),
+                            'url': result.get('url', ''),
+                            'age': result.get('age', ''),  # e.g., "6h", "2d"
+                            'page_age': result.get('page_age', ''),  # ISO 8601 datetime
+                            'source_name': result.get('source_name', ''),
+                            'article_id': result.get('article_id', ''),
+                            'type': result.get('type', ''),
+                            'thumbnail_url': thumbnail.get('src', ''),
+                            'hostname': meta_url.get('hostname', ''),
+                            'netloc': meta_url.get('netloc', ''),
+                            'scheme': meta_url.get('scheme', ''),
                         })
                 
                 return news_results
             else:
                 print(f"Error fetching news: HTTP {response.status_code}")
+                if response.status_code == 401:
+                    print("Authentication failed. Please check your API key.")
+                elif response.status_code == 403:
+                    print("Access forbidden. You.com News API requires early access partnership.")
+                    print("Contact api@you.com to request access.")
                 return []
                 
         except Exception as e:

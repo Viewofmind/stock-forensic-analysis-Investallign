@@ -23,7 +23,7 @@ class Config:
     
     # You.com API Configuration
     YOU_API_BASE_URL = "https://api.ydc-index.io"
-    YOU_API_SEARCH_ENDPOINT = "/search"
+    YOU_API_NEWS_ENDPOINT = "/livenews"  # Live news endpoint for real-time news data
     
     # Forensic Analysis Thresholds
     BENEISH_M_SCORE_THRESHOLD = -2.22  # Values > -2.22 suggest manipulation
