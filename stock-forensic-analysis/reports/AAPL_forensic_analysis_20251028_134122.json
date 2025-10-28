@@ -1,0 +1,312 @@
+{
+  "symbol": "AAPL",
+  "analysis_timestamp": "2025-10-28T13:41:22.537889",
+  "stock_info": {
+    "symbol": "AAPL",
+    "company_name": "Apple Inc.",
+    "sector": "Technology",
+    "industry": "Consumer Electronics",
+    "market_cap": 3989245001728,
+    "current_price": 268.81,
+    "previous_close": 262.82,
+    "volume": 44620772,
+    "average_volume": 54836229,
+    "pe_ratio": 40.790592,
+    "forward_pe": 32.34777,
+    "dividend_yield": 0.39,
+    "beta": 1.094,
+    "52_week_high": 269.12,
+    "52_week_low": 169.21
+  },
+  "key_ratios": {
+    "profit_margin": 24.295999,
+    "operating_margin": 29.990998,
+    "roe": 149.814,
+    "roa": 24.545999,
+    "current_ratio": 0,
+    "debt_to_equity": 1.54486,
+    "asset_turnover": 1.0713874732862074
+  },
+  "forensic_analysis": {
+    "timestamp": "2025-10-28T13:41:22.529643",
+    "symbol": "AAPL",
+    "beneish_m_score": {
+      "score": -2.712,
+      "interpretation": "M-Score suggests lower likelihood of earnings manipulation. Score <= -2.22 indicates company is likely not manipulating earnings.",
+      "risk_level": "LOW",
+      "components": {
+        "DSRI": 1.11,
+        "GMI": 0.955,
+        "AQI": 0.999,
+        "SGI": 1.02,
+        "DEPI": 1.0,
+        "SGAI": 1.026,
+        "LVGI": 1.025,
+        "TATA": -0.067
+      },
+      "calculation_possible": true
+    },
+    "altman_z_score": {
+      "score": 9.882,
+      "interpretation": "Z-Score indicates Safe Zone. Low probability of bankruptcy.",
+      "risk_level": "LOW",
+      "components": {
+        "Working_Capital_to_Total_Assets": 0.0,
+        "Retained_Earnings_to_Total_Assets": -0.052,
+        "EBIT_to_Total_Assets": 0.338,
+        "Market_Value_to_Total_Liabilities": 12.951,
+        "Sales_to_Total_Assets": 1.071
+      },
+      "calculation_possible": true
+    },
+    "promoter_pledge_analysis": {
+      "insider_ownership_percent": 1.97,
+      "institutional_ownership_percent": 63.58,
+      "risk_level": "LOW",
+      "red_flags": [],
+      "interpretation": "Shareholding pattern appears normal with no significant red flags."
+    },
+    "financial_red_flags": {
+      "red_flags": [
+        {
+          "category": "Leverage",
+          "flag": "Elevated debt-to-equity ratio",
+          "severity": "MEDIUM",
+          "value": "1.54"
+        },
+        {
+          "category": "Liquidity",
+          "flag": "Current ratio below 1 - potential liquidity issues",
+          "severity": "HIGH",
+          "value": "0.00"
+        }
+      ],
+      "total_flags": 2,
+      "risk_score": 0.3,
+      "risk_level": "MEDIUM"
+    },
+    "overall_risk_score": 0.27,
+    "overall_risk_level": "LOW"
+  },
+  "news_analysis": {
+    "total_articles_analyzed": 0,
+    "sentiment_analysis": {
+      "sentiment_score": 0.0,
+      "sentiment": "NEUTRAL",
+      "positive_count": 0,
+      "negative_count": 0,
+      "neutral_count": 0,
+      "total_articles": 0
+    },
+    "risk_signals": {
+      "high_risk": [],
+      "medium_risk": [],
+      "low_risk": [],
+      "risk_score": 0.0,
+      "risk_level": "LOW"
+    },
+    "key_topics": [],
+    "recent_headlines": [],
+    "analysis_timestamp": "2025-10-28T13:41:22.529713",
+    "critical_news": []
+  },
+  "pattern_analysis": {
+    "timestamp": "2025-10-28T13:41:22.537774",
+    "volume_spikes": {
+      "spikes_detected": 9,
+      "spike_dates": [
+        {
+          "date": "2025-04-09",
+          "volume": 184395900,
+          "multiplier": 3.4,
+          "close_price": 198.36
+        },
+        {
+          "date": "2025-09-19",
+          "volume": 163741300,
+          "multiplier": 3.02,
+          "close_price": 245.5
+        },
+        {
+          "date": "2025-04-07",
+          "volume": 160466300,
+          "multiplier": 2.96,
+          "close_price": 181.02
+        },
+        {
+          "date": "2024-12-20",
+          "volume": 147495300,
+          "multiplier": 2.72,
+          "close_price": 253.59
+        },
+        {
+          "date": "2025-04-04",
+          "volume": 125910900,
+          "multiplier": 2.32,
+          "close_price": 187.92
+        },
+        {
+          "date": "2025-04-10",
+          "volume": 121880000,
+          "multiplier": 2.25,
+          "close_price": 189.96
+        },
+        {
+          "date": "2025-04-08",
+          "volume": 120859500,
+          "multiplier": 2.23,
+          "close_price": 172.0
+        },
+        {
+          "date": "2025-08-08",
+          "volume": 113854000,
+          "multiplier": 2.1,
+          "close_price": 229.09
+        },
+        {
+          "date": "2025-08-06",
+          "volume": 108483100,
+          "multiplier": 2.0,
+          "close_price": 213.01
+        }
+      ],
+      "average_volume": 54181702,
+      "risk_level": "MEDIUM",
+      "interpretation": "Detected 9 volume spikes above 2.0x average volume"
+    },
+    "price_anomalies": {
+      "anomalies_detected": 33,
+      "anomaly_dates": [
+        {
+          "date": "2025-04-08",
+          "price": 172.0,
+          "moving_average": 211.33,
+          "deviation_percent": -18.61,
+          "type": "DROP"
+        },
+        {
+          "date": "2025-04-07",
+          "price": 181.02,
+          "moving_average": 213.74,
+          "deviation_percent": -15.31,
+          "type": "DROP"
+        },
+        {
+          "date": "2025-04-04",
+          "price": 187.92,
+          "moving_average": 216.04,
+          "deviation_percent": -13.01,
+          "type": "DROP"
+        },
+        {
+          "date": "2025-03-13",
+          "price": 209.17,
+          "moving_average": 236.4,
+          "deviation_percent": -11.52,
+          "type": "DROP"
+        },
+        {
+          "date": "2025-03-12",
+          "price": 216.45,
+          "moving_average": 237.76,
+          "deviation_percent": -8.96,
+          "type": "DROP"
+        },
+        {
+          "date": "2025-08-13",
+          "price": 233.33,
+          "moving_average": 214.46,
+          "deviation_percent": 8.8,
+          "type": "SPIKE"
+        },
+        {
+          "date": "2025-09-22",
+          "price": 256.08,
+          "moving_average": 235.79,
+          "deviation_percent": 8.61,
+          "type": "SPIKE"
+        },
+        {
+          "date": "2025-08-08",
+          "price": 229.09,
+          "moving_average": 211.31,
+          "deviation_percent": 8.41,
+          "type": "SPIKE"
+        },
+        {
+          "date": "2025-08-12",
+          "price": 229.65,
+          "moving_average": 213.29,
+          "deviation_percent": 7.67,
+          "type": "SPIKE"
+        },
+        {
+          "date": "2025-03-11",
+          "price": 220.3,
+          "moving_average": 238.54,
+          "deviation_percent": -7.64,
+          "type": "DROP"
+        }
+      ],
+      "risk_level": "HIGH",
+      "interpretation": "Detected 33 price anomalies beyond 2 standard deviations"
+    },
+    "gap_movements": {
+      "gaps_detected": 4,
+      "gap_dates": [
+        {
+          "date": "2025-04-03",
+          "gap_percent": -8.2,
+          "open_price": 205.04,
+          "previous_close": 223.34,
+          "type": "GAP_DOWN"
+        },
+        {
+          "date": "2025-04-14",
+          "gap_percent": 6.71,
+          "open_price": 210.92,
+          "previous_close": 197.67,
+          "type": "GAP_UP"
+        },
+        {
+          "date": "2025-05-12",
+          "gap_percent": 6.41,
+          "open_price": 210.73,
+          "previous_close": 198.05,
+          "type": "GAP_UP"
+        },
+        {
+          "date": "2025-04-07",
+          "gap_percent": -5.93,
+          "open_price": 176.77,
+          "previous_close": 187.92,
+          "type": "GAP_DOWN"
+        }
+      ],
+      "gap_up_count": 2,
+      "gap_down_count": 2,
+      "risk_level": "LOW",
+      "interpretation": "Detected 4 significant gaps (>5.0%)"
+    },
+    "price_volume_divergence": {
+      "divergence_detected": false,
+      "divergence_type": null,
+      "price_trend_percent": 5.57,
+      "volume_trend_percent": -6.93,
+      "risk_level": "LOW",
+      "interpretation": "No significant price-volume divergence detected"
+    },
+    "volatility_metrics": {
+      "annualized_volatility": 32.83,
+      "recent_volatility": 25.58,
+      "max_daily_gain": 15.33,
+      "max_daily_loss": -9.25,
+      "risk_level": "MEDIUM",
+      "interpretation": "Annualized volatility of 32.8% indicates moderate price fluctuation"
+    },
+    "overall_pattern_risk_score": 0.4,
+    "overall_risk_level": "LOW"
+  },
+  "overall_risk_score": 0.22,
+  "overall_risk_level": "LOW"
+}

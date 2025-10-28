@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Forensic Analysis - AAPL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .header-info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .risk-high {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .risk-medium {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .risk-low {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .risk-unknown {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .metric-card {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .metric-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .metric-value {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .red-flag {
+            background: #ffe6e6;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 3px;
+        }
+        
+        .news-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .news-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .news-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .summary-box h2 {
+            color: white;
+            border-left-color: white;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .component-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .component-name {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .component-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Stock Forensic Analysis Report</h1>
+        
+        <div class="header-info">
+            <p><strong>Symbol:</strong> AAPL</p>
+            <p><strong>Company:</strong> Apple Inc.</p>
+            <p><strong>Analysis Date:</strong> 2025-10-28 13:41:22</p>
+            <p><strong>Overall Risk Level:</strong> 
+                <span class="risk-badge risk-low">LOW</span>
+            </p>
+            <p><strong>Overall Risk Score:</strong> 0.22 / 1.0</p>
+        </div>
+        
+        <div class="summary-box">
+            <h2>🎯 Executive Summary</h2>
+            <p>Forensic analysis of AAPL reveals an overall risk level of LOW. Analysis identified 2 financial red flags requiring attention.</p>
+        </div>
+        
+        <h2>📈 Stock Information</h2>
+        <div class="component-grid">
+            <div class="component-item">
+                <div class="component-name">Current Price</div>
+                <div class="component-value">$268.81</div>
+            </div>
+            <div class="component-item">
+                <div class="component-name">Market Cap</div>
+                <div class="component-value">$3989.25B</div>
+            </div>
+            <div class="component-item">
+                <div class="component-name">P/E Ratio</div>
+                <div class="component-value">40.790592</div>
+            </div>
+            <div class="component-item">
+                <div class="component-name">Sector</div>
+                <div class="component-value">Technology</div>
+            </div>
+        </div>
+        
+        <h2>🔍 Forensic Analysis</h2>
+        
+        <h3>Beneish M-Score (Earnings Manipulation Detection)</h3>
+        <div class="metric-card">
+            <div class="metric-label">M-Score</div>
+            <div class="metric-value">-2.712 
+                <span class="risk-badge risk-low">LOW</span>
+            </div>
+            <p style="margin-top: 10px;">M-Score suggests lower likelihood of earnings manipulation. Score <= -2.22 indicates company is likely not manipulating earnings.</p>
+        </div>
+        
+        
+        <div class="component-grid">
+            
+            <div class="component-item">
+                <div class="component-name">DSRI</div>
+                <div class="component-value">1.11</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">GMI</div>
+                <div class="component-value">0.955</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">AQI</div>
+                <div class="component-value">0.999</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">SGI</div>
+                <div class="component-value">1.02</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">DEPI</div>
+                <div class="component-value">1.0</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">SGAI</div>
+                <div class="component-value">1.026</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">LVGI</div>
+                <div class="component-value">1.025</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">TATA</div>
+                <div class="component-value">-0.067</div>
+            </div>
+            
+        </div>
+        
+        
+        <h3>Altman Z-Score (Bankruptcy Prediction)</h3>
+        <div class="metric-card">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value">9.882 
+                <span class="risk-badge risk-low">LOW</span>
+            </div>
+            <p style="margin-top: 10px;">Z-Score indicates Safe Zone. Low probability of bankruptcy.</p>
+        </div>
+        
+        
+        <div class="component-grid">
+            
+            <div class="component-item">
+                <div class="component-name">Working Capital To Total Assets</div>
+                <div class="component-value">0.0</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">Retained Earnings To Total Assets</div>
+                <div class="component-value">-0.052</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">Ebit To Total Assets</div>
+                <div class="component-value">0.338</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">Market Value To Total Liabilities</div>
+                <div class="component-value">12.951</div>
+            </div>
+            
+            <div class="component-item">
+                <div class="component-name">Sales To Total Assets</div>
+                <div class="component-value">1.071</div>
+            </div>
+            
+        </div>
+        
+        
+        <h2>🚩 Financial Red Flags</h2>
+        
+            
+            <div class="red-flag">
+                <strong>Leverage:</strong> Elevated debt-to-equity ratio
+                <span class="risk-badge risk-medium">MEDIUM</span>
+                <br><small>Value: 1.54</small>
+            </div>
+            
+            <div class="red-flag">
+                <strong>Liquidity:</strong> Current ratio below 1 - potential liquidity issues
+                <span class="risk-badge risk-high">HIGH</span>
+                <br><small>Value: 0.00</small>
+            </div>
+            
+        
+        
+        <h2>👥 Shareholding Analysis</h2>
+        <div class="metric-card">
+            <p><strong>Insider Ownership:</strong> 1.97%</p>
+            <p><strong>Institutional Ownership:</strong> 63.58%</p>
+            <p><strong>Risk Level:</strong> 
+                <span class="risk-badge risk-low">LOW</span>
+            </p>
+            
+        </div>
+        
+        <h2>📊 Price & Volume Patterns</h2>
+        
+        <h3>Volume Spikes</h3>
+        <div class="metric-card">
+            <p><strong>Spikes Detected:</strong> 9</p>
+            <p><strong>Risk Level:</strong> 
+                <span class="risk-badge risk-medium">MEDIUM</span>
+            </p>
+        </div>
+        
+        <h3>Price Anomalies</h3>
+        <div class="metric-card">
+            <p><strong>Anomalies Detected:</strong> 33</p>
+            <p><strong>Risk Level:</strong> 
+                <span class="risk-badge risk-high">HIGH</span>
+            </p>
+        </div>
+        
+        <h3>Volatility Metrics</h3>
+        <div class="metric-card">
+            <p><strong>Annualized Volatility:</strong> 32.83%</p>
+            <p><strong>Risk Level:</strong> 
+                <span class="risk-badge risk-medium">MEDIUM</span>
+            </p>
+        </div>
+        
+        <h2>📰 News Analysis</h2>
+        
+        <h3>Sentiment Analysis</h3>
+        <div class="metric-card">
+            <p><strong>Overall Sentiment:</strong> NEUTRAL</p>
+            <p><strong>Sentiment Score:</strong> 0.0</p>
+            <p><strong>Articles Analyzed:</strong> 0</p>
+        </div>
+        
+        <h3>Risk Signals in News</h3>
+        <div class="metric-card">
+            <p><strong>High Risk Signals:</strong> 0</p>
+            <p><strong>Medium Risk Signals:</strong> 0</p>
+            <p><strong>News Risk Level:</strong> 
+                <span class="risk-badge risk-low">LOW</span>
+            </p>
+        </div>
+        
+        
+        
+        <h2>💡 Key Financial Ratios</h2>
+        <table>
+            <tr>
+                <th>Ratio</th>
+                <th>Value</th>
+            </tr>
+            
+            <tr>
+                <td>Profit Margin</td>
+                <td>24.295999</td>
+            </tr>
+            
+            <tr>
+                <td>Operating Margin</td>
+                <td>29.990998</td>
+            </tr>
+            
+            <tr>
+                <td>Roe</td>
+                <td>149.814</td>
+            </tr>
+            
+            <tr>
+                <td>Roa</td>
+                <td>24.545999</td>
+            </tr>
+            
+            <tr>
+                <td>Current Ratio</td>
+                <td>0</td>
+            </tr>
+            
+            <tr>
+                <td>Debt To Equity</td>
+                <td>1.54486</td>
+            </tr>
+            
+            <tr>
+                <td>Asset Turnover</td>
+                <td>1.0713874732862074</td>
+            </tr>
+            
+        </table>
+        
+        <div class="footer">
+            <p>This report was generated using Stock Forensic Analysis Tool</p>
+            <p>Report generated on 2025-10-28 13:41:22</p>
+            <p><strong>Disclaimer:</strong> This analysis is for informational purposes only and should not be considered as investment advice.</p>
+        </div>
+    </div>
+</body>
+</html>
+        
