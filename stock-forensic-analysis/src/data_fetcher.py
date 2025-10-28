@@ -180,7 +180,7 @@ class YahooFinanceDataFetcher:
 
 
 class YouComNewsDataFetcher:
-    """Fetch news and articles from You.com API"""
+    """Fetch news and articles from You.com Live News API"""
     
     def __init__(self, api_key: str = None):
         """
@@ -191,18 +191,19 @@ class YouComNewsDataFetcher:
         """
         self.api_key = api_key or Config.YOU_API_KEY
         self.base_url = Config.YOU_API_BASE_URL
+        self.livenews_endpoint = Config.YOU_API_LIVENEWS_ENDPOINT
+        self.max_news_count = Config.YOU_API_MAX_NEWS_COUNT
         self.headers = {
-            'X-API-Key': self.api_key,
-            'Content-Type': 'application/json'
+            'X-API-Key': self.api_key
         }
     
     def search_news(self, query: str, num_results: int = 10) -> List[Dict[str, Any]]:
         """
-        Search for news articles using You.com API
+        Search for news articles using You.com Live News API
         
         Args:
             query: Search query
-            num_results: Number of results to return
+            num_results: Number of results to return (1-40)
             
         Returns:
             List of news articles
@@ -211,64 +212,92 @@ class YouComNewsDataFetcher:
             print("Warning: You.com API key not configured. Returning empty results.")
             return []
         
+        # Validate count parameter (API constraint: 1-40)
+        count = min(max(num_results, 1), self.max_news_count)
+        
         try:
-            endpoint = f"{self.base_url}/search"
+            # Use Live News API endpoint
+            endpoint = f"{self.base_url}{self.livenews_endpoint}"
             params = {
-                'query': query,
-                'num_web_results': num_results,
+                'q': query,
+                'count': count
             }
             
             response = requests.get(
                 endpoint,
                 headers=self.headers,
                 params=params,
-                timeout=10
+                timeout=15
             )
             
             if response.status_code == 200:
                 data = response.json()
                 
-                # Extract news results
+                # Extract news results from Live News API response structure
                 news_results = []
                 
-                # Check for hits in the response
-                if 'hits' in data:
-                    for hit in data['hits'][:num_results]:
+                # Parse the new response structure: news.results[]
+                if 'news' in data and 'results' in data['news']:
+                    for result in data['news']['results']:
+                        # Extract metadata
+                        meta_url = result.get('meta_url', {})
+                        thumbnail = result.get('thumbnail', {})
+                        
                         news_results.append({
-                            'title': hit.get('title', ''),
-                            'description': hit.get('description', ''),
-                            'url': hit.get('url', ''),
-                            'published_date': hit.get('published_date', ''),
-                            'source': hit.get('source', ''),
+                            'title': result.get('title', ''),
+                            'description': result.get('description', ''),
+                            'url': result.get('url', ''),
+                            'published_date': result.get('page_age', ''),
+                            'age': result.get('age', ''),
+                            'source': result.get('source_name', ''),
+                            'source_hostname': meta_url.get('hostname', ''),
+                            'thumbnail_url': thumbnail.get('src', ''),
+                            'article_id': result.get('article_id', ''),
+                            'type': result.get('type', 'news_result')
                         })
                 
+                print(f"✓ Fetched {len(news_results)} news articles from You.com Live News API")
                 return news_results
+            elif response.status_code == 401:
+                print(f"Error: Invalid API key. Please check your YOU_API_KEY in .env file.")
+                return []
+            elif response.status_code == 429:
+                print(f"Error: Rate limit exceeded. Please wait before making more requests.")
+                return []
             else:
                 print(f"Error fetching news: HTTP {response.status_code}")
+                if response.text:
+                    print(f"Response: {response.text[:200]}")
                 return []
                 
+        except requests.exceptions.Timeout:
+            print(f"Error: Request timeout while fetching news from You.com API")
+            return []
+        except requests.exceptions.RequestException as e:
+            print(f"Error: Network error while fetching news: {e}")
+            return []
         except Exception as e:
             print(f"Error searching news: {e}")
             return []
     
     def get_stock_news(self, symbol: str, company_name: str = None, 
-                       num_results: int = 10) -> List[Dict[str, Any]]:
+                       num_results: int = 20) -> List[Dict[str, Any]]:
         """
         Get news specifically about a stock
         
         Args:
             symbol: Stock ticker symbol
             company_name: Company name (optional)
-            num_results: Number of results to return
+            num_results: Number of results to return (default: 20, max: 40)
             
         Returns:
             List of news articles about the stock
         """
-        # Create search query
-        if company_name:
-            query = f"{symbol} {company_name} stock news financial"
+        # Create search query optimized for live news
+        if company_name and company_name != 'N/A':
+            query = f"{company_name} {symbol} stock news"
         else:
-            query = f"{symbol} stock news financial"
+            query = f"{symbol} stock news"
         
         return self.search_news(query, num_results)
     
@@ -283,12 +312,12 @@ class YouComNewsDataFetcher:
         Returns:
             List of financial analysis articles
         """
-        if company_name:
-            query = f"{symbol} {company_name} financial analysis earnings report"
+        if company_name and company_name != 'N/A':
+            query = f"{company_name} {symbol} earnings financial analysis"
         else:
-            query = f"{symbol} financial analysis earnings report"
+            query = f"{symbol} earnings financial analysis"
         
-        return self.search_news(query, num_results=5)
+        return self.search_news(query, num_results=15)
 
 
 class DataAggregator:

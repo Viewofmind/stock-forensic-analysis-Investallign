@@ -6,7 +6,7 @@ A comprehensive Python tool for advanced stock forensic analysis using financial
 
 ### Data Sources
 - **Yahoo Finance API**: Historical prices, financial statements, ratios, shareholding patterns
-- **You.com API**: Latest news and financial articles
+- **You.com Live News API**: Real-time news articles and financial analysis from across the web
 
 ### Forensic Analysis
 - **Beneish M-Score**: Detects potential earnings manipulation using 8 financial variables
@@ -54,6 +54,11 @@ A comprehensive Python tool for advanced stock forensic analysis using financial
    ```
    YOU_API_KEY=your_you_api_key_here
    ```
+   
+   **Getting a You.com API Key:**
+   - Visit https://documentation.you.com/
+   - Contact api@you.com to request early access to the Live News API
+   - See `YOU_API_INTEGRATION.md` for detailed setup instructions
 
 ## 📖 Usage
 
